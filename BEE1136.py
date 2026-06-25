@@ -1,5 +1,6 @@
 import sys
-b = set()
+from itertools import combinations
+
 while True:
     a = list(map(int, sys.stdin.readline().split()))
     if [0,0] == a:
@@ -7,11 +8,11 @@ while True:
 
     N, B = a
     bolas = list(map(int, sys.stdin.readline().split()))
-    b.clear()
+    check = [False] * (N + 1)
+    check[0] = True
     
-    for bola1 in range(len(bolas)):
-        for bola2 in range(len(bolas) - bola1):
-            b.add(abs(bolas[bola1 + bola2] - bolas[bola2]))
+    for bola1, bola2 in combinations(bolas,2) :
+        check[abs(bola1-bola2)] = True
             
-    if len(b) == N + 1: print('Y')
-    else: print('N')
+    if check.count(True) == N + 1: print('Y')
+    else: print('N')    
